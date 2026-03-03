@@ -1,0 +1,47 @@
+# Cursor AI Rules — TikTok Engagement Engine
+
+## Project overview
+Full-stack React (Vite) + Node/Express app that wraps a Python ML engine.
+The Python engine lives in `tiktok_engine/` (sibling to this `tiktok-web/` folder).
+
+## File structure
+```
+tiktok-web/
+  client/           ← Vite + React + Tailwind + Recharts
+    src/
+      pages/        ← Home, Predict, Dashboard, HashtagAnalyzer, Metrics
+      components/   ← Layout (nav), UI (shared atoms)
+      hooks/        ← useApi (generic fetch hook)
+      lib/          ← api.js (all fetch calls to /api/*)
+  server/           ← Node/Express
+    routes/         ← predict.js, dashboard.js, hashtags.js, metrics.js
+    index.js        ← entry, middleware, mounts routes
+```
+
+## Key conventions
+- All API calls go through `client/src/lib/api.js` — never fetch directly in components
+- Use `useApi(fetcher, deps)` hook for data loading — it handles loading/error state
+- Tailwind custom tokens: `signal` (red #FE2C55), `cyan-tik` (#69C9D0), `ink` (dark bg)
+- Font classes: `font-display` (Syne), `font-body` (DM Sans), `font-mono` (DM Mono)
+- Shared atoms: `<Loading>`, `<ErrorState>`, `<StatCard>`, `<MockBadge>`, `<SectionHeader>` from `components/UI.jsx`
+- When routes call Python, they fall back to mock data if the model isn't trained yet
+
+## Adding a new page
+1. Create `client/src/pages/NewPage.jsx`
+2. Add route in `App.jsx`
+3. Add nav entry in `components/Layout.jsx` NAV array
+4. Add API method in `lib/api.js`
+5. Add Express route in `server/routes/`
+6. Mount route in `server/index.js`
+
+## Running locally
+```bash
+# Root
+npm run install:all
+npm run dev         # starts both client (:5173) and server (:3001)
+```
+
+## Connecting the Python ML engine
+Set `ML_ROOT` in `server/.env` to the repo root where `models/` and `runs/` live.
+The server calls `python3 scripts/predict_cli.py` via execFile.
+If the model isn't trained yet, all routes return realistic mock data automatically.
