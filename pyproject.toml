@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tiktok-engagement-engine"
+version = "0.1.0"
+description = "TikTok Engagement Analysis Engine — predictive analytics for content creators"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "scikit-learn>=1.5",
+    "scipy>=1.12",
+    "joblib>=1.3",
+    "matplotlib>=3.8",
+    "python-dateutil>=2.9",
+    "xgboost>=2.0",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.6",
+    "kagglehub>=0.2",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tiktok_engine*"]

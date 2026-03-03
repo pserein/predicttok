@@ -1,0 +1,27 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Data & models (large files; add via README or separate storage)
+data/*.csv
+models/*.joblib
+runs/
+
+# Web
+tiktok-web/node_modules/
+tiktok-web/dist/
+.env
+.env.*
+**/.env
+!.env.example
+
+# OS & IDE
+.DS_Store
+*.local
+.idea/
+.vscode/
