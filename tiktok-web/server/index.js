@@ -15,7 +15,8 @@ const PORT = process.env.PORT || 3001;
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.set("etag", false);
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" }));
+// Allow requests from both local dev and GitHub Pages
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use((_req, res, next) => {
